@@ -13,6 +13,16 @@
     <mvc:annotation-driven />
     <context:component-scan base-package="com.jinguzi.controller" />
 
+    <!--后台拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin"/>
+            <mvc:mapping path="/admin/*"/>
+            <mvc:exclude-mapping path="/admin/login"/>
+            <bean class="com.jinguzi.interceptor.AuthInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
