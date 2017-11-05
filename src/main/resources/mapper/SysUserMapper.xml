@@ -42,15 +42,15 @@
     select id, name, password, create_time, update_time, is_delete
     from sys_user
   </select>
-    <resultMap id="BaseResultMap" type="com.jinguzi.entity.SysUser">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="password" jdbcType="VARCHAR" property="password" />
-    </resultMap>
-    <select id="selectUserInfo" resultMap="BaseResultMap">
-        SELECT id,name,password
+    <!--<resultMap id="BaseResultMap" type="com.jinguzi.entity.SysUser">-->
+        <!--<id column="id" jdbcType="BIGINT" property="id" />-->
+        <!--<result column="name" jdbcType="VARCHAR" property="name" />-->
+        <!--<result column="password" jdbcType="VARCHAR" property="password" />-->
+    <!--</resultMap>-->
+    <select id="selectUserInfo" resultMap="BaseResultMap" parameterType="com.jinguzi.entity.SysUser">
+        SELECT id,name,password,create_time,update_time,is_delete
         FROM sys_user
-        WHERE 1=1
+        WHERE is_delete = 0
         <if test="id != null and id != '' ">
             AND id = #{id}
         </if>

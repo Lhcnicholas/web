@@ -18,7 +18,7 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
 
     @Override
-    public SysUser getUser(Long userId) {
-        return sysUserMapper.selectByPrimaryKey(userId);
+    public SysUser getUser(SysUser sysUser) {
+        return sysUserMapper.selectUserInfo(sysUser);
     }
 }

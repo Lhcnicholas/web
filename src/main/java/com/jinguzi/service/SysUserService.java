@@ -9,5 +9,5 @@ import com.jinguzi.entity.SysUser;
  */
 public interface SysUserService {
 
-    SysUser getUser(Long userId);
+    SysUser getUser(SysUser sysUser);
 }
