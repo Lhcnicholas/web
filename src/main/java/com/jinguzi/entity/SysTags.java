@@ -2,12 +2,10 @@ package com.jinguzi.entity;
 
 import java.util.Date;
 
-public class SysUser {
+public class SysTags {
     private Long id;
 
-    private String name;
-
-    private String password;
+    private String tagName;
 
     private Date createTime;
 
@@ -23,20 +21,12 @@ public class SysUser {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     public Date getCreateTime() {

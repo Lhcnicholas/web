@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinguzi.dao.SysPagePropertiesMapper">
+  <resultMap id="BaseResultMap" type="com.jinguzi.entity.SysPageProperties">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="page_code" jdbcType="VARCHAR" property="pageCode" />
+    <result column="property_code" jdbcType="VARCHAR" property="propertyCode" />
+    <result column="property_value" jdbcType="VARCHAR" property="propertyValue" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_page_properties
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jinguzi.entity.SysPageProperties">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_page_properties (id, page_code, property_code, 
+      property_value)
+    values (#{id,jdbcType=BIGINT}, #{pageCode,jdbcType=VARCHAR}, #{propertyCode,jdbcType=VARCHAR}, 
+      #{propertyValue,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jinguzi.entity.SysPageProperties">
+    update sys_page_properties
+    set page_code = #{pageCode,jdbcType=VARCHAR},
+      property_code = #{propertyCode,jdbcType=VARCHAR},
+      property_value = #{propertyValue,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, page_code, property_code, property_value
+    from sys_page_properties
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, page_code, property_code, property_value
+    from sys_page_properties
+  </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinguzi.dao.ProjectInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jinguzi.entity.ProjectInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_tags" jdbcType="VARCHAR" property="projectTags" />
+    <result column="project_picture" jdbcType="VARCHAR" property="projectPicture" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_delete" jdbcType="CHAR" property="isDelete" />
+    <result column="project_intro" jdbcType="LONGVARCHAR" property="projectIntro" />
+    <result column="project_cotent" jdbcType="LONGVARCHAR" property="projectCotent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from project_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jinguzi.entity.ProjectInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project_info (id, project_name, project_tags, 
+      project_picture, create_time, update_time, 
+      is_delete, project_intro, project_cotent
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectTags,jdbcType=VARCHAR}, 
+      #{projectPicture,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=CHAR}, #{projectIntro,jdbcType=LONGVARCHAR}, #{projectCotent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jinguzi.entity.ProjectInfo">
+    update project_info
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      project_tags = #{projectTags,jdbcType=VARCHAR},
+      project_picture = #{projectPicture,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      project_intro = #{projectIntro,jdbcType=LONGVARCHAR},
+      project_cotent = #{projectCotent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, project_name, project_tags, project_picture, create_time, update_time, 
+    is_delete, project_intro, project_cotent
+    from project_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, project_name, project_tags, project_picture, create_time, update_time, 
+    is_delete, project_intro, project_cotent
+    from project_info
+  </select>
+</mapper>

@@ -1,12 +1,10 @@
 package com.jinguzi.service.impl;
 
-import com.jinguzi.dao.SysUserDao;
+import com.jinguzi.dao.SysUserMapper;
 import com.jinguzi.entity.SysUser;
 import com.jinguzi.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * Des:
@@ -17,10 +15,10 @@ import javax.annotation.Resource;
 public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
-    private SysUserDao sysUserDao;
+    private SysUserMapper sysUserMapper;
 
     @Override
-    public SysUser getUser(SysUser sysUser) {
-        return sysUserDao.selectUserInfo(sysUser);
+    public SysUser getUser(Long userId) {
+        return sysUserMapper.selectByPrimaryKey(userId);
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinguzi.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.jinguzi.entity.News">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="news_type" jdbcType="VARCHAR" property="newsType" />
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="news_author" jdbcType="VARCHAR" property="newsAuthor" />
+    <result column="news_tags" jdbcType="VARCHAR" property="newsTags" />
+    <result column="news_picture" jdbcType="VARCHAR" property="newsPicture" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_delete" jdbcType="CHAR" property="isDelete" />
+    <result column="news_content" jdbcType="LONGVARCHAR" property="newsContent" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from news
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jinguzi.entity.News">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into news (id, news_type, news_title, 
+      news_author, news_tags, news_picture, 
+      create_time, update_time, is_delete, 
+      news_content)
+    values (#{id,jdbcType=BIGINT}, #{newsType,jdbcType=VARCHAR}, #{newsTitle,jdbcType=VARCHAR}, 
+      #{newsAuthor,jdbcType=VARCHAR}, #{newsTags,jdbcType=VARCHAR}, #{newsPicture,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}, 
+      #{newsContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jinguzi.entity.News">
+    update news
+    set news_type = #{newsType,jdbcType=VARCHAR},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_author = #{newsAuthor,jdbcType=VARCHAR},
+      news_tags = #{newsTags,jdbcType=VARCHAR},
+      news_picture = #{newsPicture,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, news_type, news_title, news_author, news_tags, news_picture, create_time, 
+    update_time, is_delete, news_content
+    from news
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, news_type, news_title, news_author, news_tags, news_picture, create_time, 
+    update_time, is_delete, news_content
+    from news
+  </select>
+</mapper>
