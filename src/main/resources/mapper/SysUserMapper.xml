@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="actual_name" jdbcType="VARCHAR" property="actualName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_delete" jdbcType="CHAR" property="isDelete" />
@@ -17,10 +18,10 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into sys_user (id, name, password, 
+    insert into sys_user (id, name, password, actual_name,
       create_time, update_time, is_delete
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{actualName,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}
       )
   </insert>
@@ -28,18 +29,19 @@
     update sys_user
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      actual_name = #{actualName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=CHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, name, password, create_time, update_time, is_delete
+    select id, name, password, actual_name,create_time, update_time, is_delete
     from sys_user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, name, password, create_time, update_time, is_delete
+    select id, name, password, actual_name,create_time, update_time, is_delete
     from sys_user
   </select>
     <!--<resultMap id="BaseResultMap" type="com.jinguzi.entity.SysUser">-->
@@ -48,7 +50,7 @@
         <!--<result column="password" jdbcType="VARCHAR" property="password" />-->
     <!--</resultMap>-->
     <select id="selectUserInfo" resultMap="BaseResultMap" parameterType="com.jinguzi.entity.SysUser">
-        SELECT id,name,password,create_time,update_time,is_delete
+        SELECT id,name,password,actual_name,create_time,update_time,is_delete
         FROM sys_user
         WHERE is_delete = 0
         <if test="id != null and id != '' ">

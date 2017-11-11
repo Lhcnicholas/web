@@ -54,4 +54,25 @@
     update_time, is_delete, news_content
     from news
   </select>
+  <update id="updateNewsBySelected" parameterType="com.jinguzi.entity.News">
+    UPDATE news
+    <set>
+      <if test="newsType != null and newsType != ''" >
+        news_type = #{newsType,jdbcType=VARCHAR},
+      </if>
+      <if test="newTitle != null">
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsAuthor != null" >
+        news_author = #{newsAuthor,jdbcType=VARCHAR},
+      </if>
+
+      news_tags = #{newsTags,jdbcType=VARCHAR},
+      news_picture = #{newsPicture,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+    </set>
+  </update>
 </mapper>

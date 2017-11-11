@@ -9,6 +9,8 @@ public class SysUser {
 
     private String password;
 
+    private String actualName;
+
     private Date createTime;
 
     private Date updateTime;
@@ -61,5 +63,13 @@ public class SysUser {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getActualName() {
+        return actualName;
+    }
+
+    public void setActualName(String actualName) {
+        this.actualName = actualName;
     }
 }

@@ -45,7 +45,7 @@ public class LoginController {
             if (Objects.equals(username, user.getName()) && Objects.equals(password, user.getPassword())){
                 HttpSession session = request.getSession();
                 session.setAttribute("user",user);
-                session.setMaxInactiveInterval(60);
+                session.setMaxInactiveInterval(60*30);
                 return new ModelAndView("redirect:/admin");
             }
             return new ModelAndView("admin/login");
