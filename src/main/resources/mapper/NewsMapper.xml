@@ -66,13 +66,28 @@
       <if test="newsAuthor != null" >
         news_author = #{newsAuthor,jdbcType=VARCHAR},
       </if>
-
-      news_tags = #{newsTags,jdbcType=VARCHAR},
-      news_picture = #{newsPicture,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="newsTags != null" >
+        news_tags = #{newsTags,jdbcType=VARCHAR},
+      </if>
+      <if test="newsPicture != null" >
+        news_picture = #{newsPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
       is_delete = #{isDelete,jdbcType=CHAR},
-      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="newsContent != null">
+        news_content = #{newsContent,jdbcType=LONGVARCHAR}
+      </if>
     </set>
   </update>
+
+  <select id="getNewsList" parameterType="com.jinguzi.utils.PageModel">
+
+  </select>
 </mapper>

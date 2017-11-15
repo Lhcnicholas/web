@@ -19,7 +19,7 @@ public class ProjectInfo {
 
     private String projectIntro;
 
-    private String projectCotent;
+    private String projectContent;
 
     public Long getId() {
         return id;
@@ -85,11 +85,11 @@ public class ProjectInfo {
         this.projectIntro = projectIntro;
     }
 
-    public String getProjectCotent() {
-        return projectCotent;
+    public String getprojectContent() {
+        return projectContent;
     }
 
-    public void setProjectCotent(String projectCotent) {
-        this.projectCotent = projectCotent;
+    public void setprojectContent(String projectContent) {
+        this.projectContent = projectContent;
     }
 }

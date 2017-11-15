@@ -10,7 +10,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_delete" jdbcType="CHAR" property="isDelete" />
     <result column="project_intro" jdbcType="LONGVARCHAR" property="projectIntro" />
-    <result column="project_cotent" jdbcType="LONGVARCHAR" property="projectCotent" />
+    <result column="project_content" jdbcType="LONGVARCHAR" property="projectContent" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from project_info
@@ -22,11 +22,11 @@
     </selectKey>
     insert into project_info (id, project_name, project_tags, 
       project_picture, create_time, update_time, 
-      is_delete, project_intro, project_cotent
+      is_delete, project_intro, project_content
       )
     values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectTags,jdbcType=VARCHAR}, 
       #{projectPicture,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=CHAR}, #{projectIntro,jdbcType=LONGVARCHAR}, #{projectCotent,jdbcType=LONGVARCHAR}
+      #{isDelete,jdbcType=CHAR}, #{projectIntro,jdbcType=LONGVARCHAR}, #{projectContent,jdbcType=LONGVARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.jinguzi.entity.ProjectInfo">
@@ -38,18 +38,73 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=CHAR},
       project_intro = #{projectIntro,jdbcType=LONGVARCHAR},
-      project_cotent = #{projectCotent,jdbcType=LONGVARCHAR}
+      project_content = #{projectContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, project_name, project_tags, project_picture, create_time, update_time, 
-    is_delete, project_intro, project_cotent
+    is_delete, project_intro, project_content
     from project_info
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, project_name, project_tags, project_picture, create_time, update_time, 
-    is_delete, project_intro, project_cotent
+    is_delete, project_intro, project_content
     from project_info
+  </select>
+
+  <select id="selectSelected" resultMap="BaseResultMap" parameterType="com.jinguzi.entity.ProjectInfo">
+    SELECT id, project_name, project_tags, project_picture, create_time, update_time,
+      is_delete, project_intro, project_content
+    FROM project_info
+    <where>
+        is_delete = 0
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="projectName != null">
+        and project_name like CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectTags != null">
+        and find_in_set(#{projectTags},project_tags)
+      </if>
+    </where>
+  </select>
+
+  <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.jinguzi.entity.ProjectInfo">
+    select count(1)
+    from project_info
+    <where>
+      is_delete = 0
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="projectName != null">
+        and project_name like CONCAT('%',#{projectName},'%')
+      </if>
+      <if test="projectTags != null">
+        and find_in_set(#{projectTags},project_tags)
+      </if>
+    </where>
+  </select>
+
+  <select id="getProjectPage" resultMap="BaseResultMap">
+    select id, project_name, project_tags, project_picture, create_time, update_time,
+      is_delete, project_intro, project_content
+    from project_info
+    <where>
+      is_delete = 0
+      <if test="param.id != null and param.id != ''">
+        and id = #{param.id,jdbcType=BIGINT}
+      </if>
+      <if test="param.projectName != null">
+        and project_name like CONCAT('%',#{param.projectName},'%')
+      </if>
+      <if test="param.projectTags != null">
+        and find_in_set(#{param.projectTags},project_tags)
+      </if>
+    </where>
+    order by create_time desc
+    limit #{page.offset},#{page.pageSize}
   </select>
 </mapper>

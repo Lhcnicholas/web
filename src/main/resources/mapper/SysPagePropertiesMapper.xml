@@ -36,4 +36,16 @@
     select id, page_code, property_code, property_value
     from sys_page_properties
   </select>
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="com.jinguzi.entity.SysPageProperties">
+    SELECT id,page_code,property_code,property_value
+    FROM sys_page_properties
+    <where>
+      <if test="pageCode != null and pageCode != ''">
+        page_code = #{pageCode,jdbcType=VARCHAR}
+      </if>
+      <if test="propertyCode != null and propertyCode != ''" >
+        and property_code = #{propertyCode,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

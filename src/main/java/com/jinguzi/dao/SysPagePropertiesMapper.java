@@ -16,4 +16,6 @@ public interface SysPagePropertiesMapper {
     List<SysPageProperties> selectAll();
 
     int updateByPrimaryKey(SysPageProperties record);
+
+    List<SysPageProperties> selectByCode(SysPageProperties sysPageProperties);
 }

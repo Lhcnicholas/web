@@ -20,5 +20,7 @@ public interface NewsService {
 
     void updateNews(News news);
 
-    void deleteNews(News news);
+    void deleteNews(News news) throws Exception;
+
+    News getNews(News news) throws Exception;
 }
